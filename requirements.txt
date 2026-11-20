@@ -1,0 +1,7 @@
+numpy>=1.26,<3
+opencv-python-headless>=4.9,<5
+Pillow>=10.4,<13
+pillow-avif-plugin>=1.4,<2
+scikit-image>=0.24,<1
+imageio-ffmpeg>=0.6,<1
+tkinterdnd2>=0.4,<1

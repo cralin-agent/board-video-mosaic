@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+*.pyc
+BoardPackages/
+*.zip
+*.zip.part
+.DS_Store
