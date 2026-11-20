@@ -40,3 +40,10 @@ def dsh_tile(rgb, k=15.0):
         return Image.fromarray(rgb, "RGB"), "fallback-rgb"
     return Image.fromarray((mask.astype(np.uint8)*255), "L").convert("1"), "binary"
 
+
+
+def encode_dsh(mosaic):
+    from io import BytesIO
+    out=BytesIO()
+    mosaic.save(out,format="PNG",compress_level=6)
+    return out.getvalue(),{"gate":"destructive_binary"}
