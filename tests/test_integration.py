@@ -38,7 +38,7 @@ class Integration(unittest.TestCase):
                     self.assertIn(m["frames"],(5,8))
                     self.assertEqual(m["mosaics"],(m["frames"]+3)//4)
                     base=(root/("out_"+codec))
-                    dirs=list(base.glob("*_*/manifest.json"))
+                    dirs=list(base.glob("*_*/"+codec+"/manifest.json"))
                     self.assertEqual(len(dirs),2)
                     for d in dirs:
                         local=json.loads(d.read_text())

@@ -9,7 +9,7 @@ Windows 双击 **Start-Windows.cmd**。第一次启动自动创建隔离的 Pyth
 ## 输出协议
 
 - 每个视频每秒取一帧（ffmpeg fps=1），按时间连续 4 帧组成 2×2，帧不缩小。
-- 输出到拖入文件夹下的 `BoardPackages/<视频名>_<路径hash>/`。
+- 输出到拖入文件夹下的 `BoardPackages/<视频名>_<路径hash>/<avif或dsh>/`。
 - 每个视频独立 `part_001.zip`、`part_002.zip` 等，ZIP 内含 `mosaics/`、`manifest.json`、`index.html` 和说明。
 - **单 ZIP 必须 < 100,000,000 字节**；按 90,000,000 字节预算自动分包，避免将 MiB 误当 MB。每个分包解压后可独立打开 index.html。
 - 视频子目录递归处理；同名视频通过相对路径哈希区分。源视频不修改。

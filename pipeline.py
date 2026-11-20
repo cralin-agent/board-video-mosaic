@@ -107,8 +107,9 @@ def process_video(video, root, output, algorithm="avif", adaptive=True,
     if max_bytes>=100_000_000 or max_bytes<100_000:
         raise ValueError("Max ZIP size must be >=100KB and <100,000,000 bytes")
     w,h=video_meta(video)
-    target=video_output_dir(video,root,output)
+    target=video_output_dir(video,root,output)/algorithm
     target.mkdir(parents=True,exist_ok=True)
+    (target/"manifest.json").unlink(missing_ok=True)
     # Never leave half a ZIP with a success-looking filename.
     for old in target.glob("*.zip.part"):
         old.unlink()
@@ -197,6 +198,9 @@ def process_video(video, root, output, algorithm="avif", adaptive=True,
             temp=Path(current.filename);current.close();temp.unlink(missing_ok=True)
         raise
     if totalframes==0:raise RuntimeError("No frames: "+str(video))
+    valid_names={part["file"] for part in parts}
+    for stale in target.glob("part_*.zip"):
+        if stale.name not in valid_names: stale.unlink()
     manifest={"source":str(video),"algorithm":algorithm,
       "sampling_seconds":1,"tile": [w,h],"mosaic":[2*w,2*(h+GAP)],
       "frames":totalframes,"mosaics":totalmos,"parts":parts,
